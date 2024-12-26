@@ -134,7 +134,7 @@ export default async function HomePage({
                       </span>
                     </span>
                   ) : (
-                    <span>no linked repo</span>
+                    <span>no linked repos</span>
                   )}
                   {task._count.comments > 0 ? (
                     <span className='flex items-center gap-1'>
