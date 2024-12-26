@@ -17,10 +17,25 @@ import { Icons } from '~/components/icons';
 import { CreateTaskForm } from '~/components/task-form';
 
 export const metadata: Metadata = {
-  title: 'Home page 🏡'
+  title: 'Chirag Home page 🏡'
 };
 
-async function getMyTasks(searchValue: string = '') {
+// Define Task Type
+type Task = {
+  id: string;
+  title: string;
+  description: string | null;
+  done: boolean;
+  due: Date | null;
+  gh: {
+    fullName: string | null;
+  } | null;
+  _count: {
+    comments: number;
+  };
+};
+
+async function getMyTasks(searchValue: string = ''): Promise<Task[]> {
   const session = await getServerSession(authOptions);
 
   if (!session) {
@@ -87,7 +102,7 @@ export default async function HomePage({
         <span className='text-center text-sm'>you have no tasks yet 🥲</span>
       ) : (
         <ul className='flex flex-col gap-3 text-sm'>
-          {tasks.map((task) => (
+          {tasks.map((task:Task) => (
             <li
               key={task.id}
               className='flex items-center gap-2 rounded-md border p-3'
