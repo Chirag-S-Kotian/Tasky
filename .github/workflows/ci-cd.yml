@@ -47,14 +47,11 @@ jobs:
           push: true
           tags: ${{ secrets.DOCKER_USERNAME }}/tasky:latest
 
-      - name: Run Container
+      - name: Run Application Using Docker Compose
         run: |
-          docker run -d \
-            -e DATABASE_URL=${{ secrets.DATABASE_URL }} \
-            -e NEXT_PUBLIC_APP_URL=${{ secrets.NEXT_PUBLIC_APP_URL }} \
-            -e NEXTAUTH_SECRET=${{ secrets.NEXTAUTH_SECRET }} \
-            -e NEXTAUTH_URL=${{ secrets.NEXTAUTH_URL }} \
-            -e NEXTAUTH_SECRET_EXPIRES_IN=${{ secrets.NEXTAUTH_SECRET_EXPIRES_IN }} \
-            -p 3000:3000 \
-            --name tasky \
-            ${{ secrets.DOCKER_USERNAME }}/tasky:latest
+          echo "${{ secrets.DATABASE_URL }}" > .env
+          echo "${{ secrets.NEXT_PUBLIC_APP_URL }}" >> .env
+          echo "${{ secrets.NEXTAUTH_SECRET }}" >> .env
+          echo "${{ secrets.NEXTAUTH_URL }}" >> .env
+          echo "${{ secrets.NEXTAUTH_SECRET_EXPIRES_IN }}" >> .env
+          docker-compose up --build -d
