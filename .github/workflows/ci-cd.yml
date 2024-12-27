@@ -39,9 +39,6 @@ jobs:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
 
-      - name: List Files for Debugging
-        run: ls -R
-
       - name: Build and Push Docker Image
         uses: docker/build-push-action@v4
         with:
@@ -49,3 +46,14 @@ jobs:
           file: Dockerfile
           push: true
           tags: ${{ secrets.DOCKER_USERNAME }}/tasky:latest
+
+      - name: Run Container
+        run: |
+          docker run -d \
+            -e DATABASE_URL=${{ secrets.DATABASE_URL }} \
+            -e NEXT_PUBLIC_URL=${{ secrets.NEXT_PUBLIC_URL }} \
+            -e NEXTAUTH_SECRET=${{ secrets.NEXTAUTH_SECRET }} \
+            -e NEXTAUTH_URL=${{ secrets.NEXTAUTH_URL }} \
+            -p 3000:3000 \
+            --name tasky \
+            ${{ secrets.DOCKER_USERNAME }}/tasky:latest
