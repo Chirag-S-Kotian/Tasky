@@ -63,3 +63,21 @@ jobs:
             -p 3000:3000 \
             --name tasky \
             ${{ secrets.DOCKER_USERNAME }}/tasky:latest
+            
+      - name: Deploy to Kubernetes
+        env:
+          KUBECONFIG: ${{ secrets.KUBECONFIG }}
+        run: |
+          echo "Applying Kubernetes configurations..."
+          kubectl apply -f k8s/configmap.yaml
+          kubectl apply -f k8s/secret.yaml
+          kubectl apply -f k8s/deployment.yaml
+          kubectl apply -f k8s/service.yaml
+
+      - name: Verify Kubernetes Deployment
+        run: |
+          echo "Checking Kubernetes pods..."
+          kubectl get pods
+          echo "Checking Kubernetes services..."
+          kubectl get svc
+    
