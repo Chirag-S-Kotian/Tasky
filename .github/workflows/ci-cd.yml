@@ -15,20 +15,11 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Set up Minikube
-        run: |
-          curl -Lo minikube https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64
-          chmod +x minikube
-          sudo mv minikube /usr/local/bin/
-          minikube start
+      - name: Set up kubectl
+        uses: azure/k8s-set-context@v1
+        with:
+          kubeconfig: ${{ secrets.KUBECONFIG }}
 
-      - name: Use Minikube context
-        run: |
-          kubectl config use-context minikube
-
-      - name: Verify kubeconfig
-        run: kubectl config view
-        
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
@@ -78,20 +69,10 @@ jobs:
             --name tasky \
             ${{ secrets.DOCKER_USERNAME }}/tasky:latest
           
-      # - name: Debug KUBECONFIG
-      #   run: |
-      #     echo "KUBECONFIG: $KUBECONFIG"
-      #     cat $KUBECONFIG
-      #   env:
-      #     KUBECONFIG: ${{ secrets.KUBECONFIG }}
-          
-
       - name: Deploy to Kubernetes
         env:
           KUBECONFIG: ${{ secrets.KUBECONFIG }}
         run: |
-          echo "$KUBECONFIG" > kubeconfig.yaml
-          export KUBECONFIG=kubeconfig.yaml
           kubectl apply -f k8s/configmap.yaml
           kubectl apply -f k8s/secret.yaml
           kubectl apply -f k8s/deployment.yaml
