@@ -64,12 +64,12 @@ jobs:
             --name tasky \
             ${{ secrets.DOCKER_USERNAME }}/tasky:latest
           
-      - name: Debug KUBECONFIG
-        run: |
-          echo "KUBECONFIG: $KUBECONFIG"
-          cat $KUBECONFIG
-        env:
-          KUBECONFIG: ${{ secrets.KUBECONFIG }}
+      # - name: Debug KUBECONFIG
+      #   run: |
+      #     echo "KUBECONFIG: $KUBECONFIG"
+      #     cat $KUBECONFIG
+      #   env:
+      #     KUBECONFIG: ${{ secrets.KUBECONFIG }}
           
 
       - name: Deploy to Kubernetes
