@@ -48,6 +48,10 @@ jobs:
           docker tag ${{ secrets.DOCKER_USERNAME }}/tasky ${{ secrets.DOCKER_USERNAME }}/tasky:latest
           docker push ${{ secrets.DOCKER_USERNAME }}/tasky:latest
 
+      - name: Clean up Old Containers
+        run: |
+          docker ps -aq -f name=tasky | xargs --no-run-if-empty docker rm -f
+
       - name: Run Container
         run: |
           docker run -d \
