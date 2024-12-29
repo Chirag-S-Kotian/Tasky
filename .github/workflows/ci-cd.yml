@@ -76,7 +76,8 @@ jobs:
         env:
           KUBECONFIG: ${{ secrets.KUBECONFIG }}
         run: |
-          echo "Applying Kubernetes configurations..."
+          echo "$KUBECONFIG" > kubeconfig.yaml
+          export KUBECONFIG=kubeconfig.yaml
           kubectl apply -f k8s/configmap.yaml
           kubectl apply -f k8s/secret.yaml
           kubectl apply -f k8s/deployment.yaml
