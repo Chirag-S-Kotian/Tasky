@@ -15,11 +15,6 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Set up kubectl
-        uses: azure/k8s-set-context@v1
-        with:
-          kubeconfig: ${{ secrets.KUBECONFIG }}
-
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
@@ -70,18 +65,20 @@ jobs:
             ${{ secrets.DOCKER_USERNAME }}/tasky:latest
           
       - name: Deploy to Kubernetes
-        env:
-          KUBECONFIG: ${{ secrets.KUBECONFIG }}
-        run: |
-          kubectl apply -f k8s/configmap.yaml --validate=false
-          kubectl apply -f k8s/secret.yaml
-          kubectl apply -f k8s/deployment.yaml
-          kubectl apply -f k8s/service.yaml
+        uses: azure/k8s-deploy@v1
+        with:
+          kubeconfig: "${{ secrets.KUBE_CONFIG }}"
 
-      - name: Verify Kubernetes Deployment
+      - name: Deploy to kubernetes
         run: |
-          echo "Checking Kubernetes pods..."
+          kubectl apply -f k8s/configmap.yaml
+          kubectl apply -f k8s/secret.yaml
+          kubectl apply -f k8s/service.yaml
+          kubectl apply -f k8s/deployment.yaml
+      
+      - name: Check Deployment Status
+        run: |
           kubectl get pods
-          echo "Checking Kubernetes services..."
           kubectl get svc
+          kubectl get deployment
     
