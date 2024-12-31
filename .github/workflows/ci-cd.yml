@@ -64,27 +64,19 @@ jobs:
             --name tasky \
             ${{ secrets.DOCKER_USERNAME }}/tasky:latest
 
-      - name: Set Kubernetes Context
-        uses: azure/k8s-set-context@v1
+      - name: Set up kubectl
+        uses: azure/setup-kubectl@v3
         with:
-          method: kubeconfig
-          kubeconfig: "${{ secrets.KUBE_CONFIG }}"
+          version: 'v1.27.0'
 
-      - name: Deploy to Kubernetes
-        uses: azure/k8s-deploy@v1
-        with:
-          manifests: |
-            k8s/deployment.yaml
-            k8s/service.yaml
-            k8s/configmap.yaml
-            k8s/secret.yaml
-          strategy: none
-          force: true
-          namespace: default
+      - name: configure kubernetes
+        env:
+          KUBE_CONFIG: ${{ secrets.KUBE_CONFIG }}
+        run: echo "$KUBE_CONFIG" | base64 -d > ~/.kube/config
 
-      - name: Check Deployment Status
+      - name: Apply kubernetes manifests
         run: |
-          kubectl get pods
-          kubectl get svc
-          kubectl get deployment
-    
+          kubectl apply -f k8s/configmap.yaml
+          kubectl apply -f k8s/secret.yaml
+          kubectl apply -f k8s/deployment.yaml
+          kubectl apply -f k8s/service.yaml
