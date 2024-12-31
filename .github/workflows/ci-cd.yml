@@ -72,7 +72,7 @@ jobs:
       - name: configure kubernetes
         env:
           KUBE_CONFIG: ${{ secrets.KUBE_CONFIG }}
-        run: 
+        run: |
           mkdir -p ~/.kube
           echo "$KUBE_CONFIG" | base64 -d > ~/.kube/config
 
