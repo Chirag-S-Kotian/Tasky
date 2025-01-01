@@ -4,6 +4,6 @@ metadata:
   name: tasky-config
   namespace: default
 data:
-  NEXT_PUBLIC_APP_URL: "http://tasky.example1.com"
-  NEXTAUTH_URL: "http://tasky.example1.com"
+  NEXT_PUBLIC_APP_URL: "http://localhost:3000"
+  NEXTAUTH_URL: "http://localhost:3000"
   NEXTAUTH_SECRET_EXPIRES_IN: "3600"
