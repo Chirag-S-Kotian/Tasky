@@ -1,7 +1,7 @@
 resource "kubernetes_secret" "tasky_secret" {
   metadata {
     name      = "tasky-secret"
-    namespace = kubernetes_namespace.tasky.metadata[0].name
+    namespace = "default"
   }
 
   data = {

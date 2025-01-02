@@ -1,7 +1,7 @@
 resource "kubernetes_config_map" "tasky_config" {
   metadata {
     name      = "tasky-config"
-    namespace = kubernetes_namespace.tasky.metadata[0].name
+    namespace = "default"
   }
 
   data = {

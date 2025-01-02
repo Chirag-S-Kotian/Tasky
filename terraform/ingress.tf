@@ -14,10 +14,9 @@ resource "kubernetes_ingress" "tasky_ingress" {
       http {
         path {
           path = "/"
-
           backend {
-            service_name = "tasky-service"
-            service_port = 80
+            service_name = kubernetes_service.tasky_service.metadata[0].name
+            service_port = kubernetes_service.tasky_service.spec[0].port[0].port
           }
         }
       }
