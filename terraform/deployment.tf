@@ -25,7 +25,7 @@ resource "kubernetes_deployment" "tasky_deployment" {
           name  = "tasky"
           image = "chirag117/tasky:latest"
 
-          ports {
+          port {
             container_port = 3000
           }
 
