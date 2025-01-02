@@ -1,12 +1,14 @@
 resource "kubernetes_deployment" "tasky_deployment" {
   metadata {
     name      = "tasky-deployment"
-    namespace = kubernetes_namespace.tasky.metadata[0].name
+    namespace = "default"
+    labels = {
+      app = "tasky"
+    }
   }
 
   spec {
     replicas = 2
-
     selector {
       match_labels = {
         app = "tasky"
@@ -31,21 +33,25 @@ resource "kubernetes_deployment" "tasky_deployment" {
 
           env_from {
             config_map_ref {
-              name = kubernetes_config_map.tasky_config.metadata[0].name
+              name = "tasky-config"
             }
+          }
+
+          env_from {
             secret_ref {
-              name = kubernetes_secret.tasky_secret.metadata[0].name
+              name = "tasky-secret"
             }
           }
 
           resources {
-            limits {
-              cpu    = "500m"
+            limits = {
               memory = "512Mi"
+              cpu    = "500m"
             }
-            requests {
-              cpu    = "250m"
+
+            requests = {
               memory = "256Mi"
+              cpu    = "250m"
             }
           }
 

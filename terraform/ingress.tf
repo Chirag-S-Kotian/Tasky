@@ -2,7 +2,6 @@ resource "kubernetes_ingress" "tasky_ingress" {
   metadata {
     name      = "tasky-ingress"
     namespace = "default"
-
     annotations = {
       "nginx.ingress.kubernetes.io/rewrite-target" = "/"
     }
@@ -14,16 +13,11 @@ resource "kubernetes_ingress" "tasky_ingress" {
 
       http {
         path {
-          path     = "/"
-          path_type = "Prefix"
+          path = "/"
 
           backend {
-            service {
-              name = "tasky-service"
-              port {
-                number = 80
-              }
-            }
+            service_name = "tasky-service"
+            service_port = 80
           }
         }
       }
