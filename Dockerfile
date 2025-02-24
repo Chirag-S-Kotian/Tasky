@@ -18,19 +18,15 @@ COPY --from=deps /app/node_modules ./node_modules
 
 RUN npx prisma generate
 
-# Ensure Next.js can build without errors
 RUN npm run build
 
-# Stage 3: Create optimized production image
 FROM node:20-alpine AS runner
 
 WORKDIR /app
 
-# Copy only the essential files for production
 COPY --from=builder /app/.next/standalone ./
-COPY --from=builder /app/public ./public
-COPY --from=builder /app/.next/static ./.next/static
-COPY --from=builder /app/.env* ./
+# COPY --from=builder /app/public ./public
+# COPY --from=builder /app/.next/static ./.next/static
 
 EXPOSE 3000
 
