@@ -1,26 +1,40 @@
-# Use the official Node.js image from Docker Hub
-FROM node:22-alpine
+# Stage 1: Install dependencies
+FROM node:20-alpine AS deps
 
-# Set the working directory to /app
 WORKDIR /app
 
-# Copy package.json and package-lock.json first to optimize layer caching
-COPY package.json package-lock.json ./
+COPY package*.json ./
 
-# Install dependencies
 RUN npm install
 
-# Copy the rest of the application code into the container
+# Stage 2: Build the Next.js app
+FROM node:20-alpine AS builder
+
+WORKDIR /app
+
 COPY . .
 
-# Generate Prisma client (requires the DATABASE_URL environment variable)
+COPY --from=deps /app/node_modules ./node_modules
+
 RUN npx prisma generate
 
-# Build the application (this will likely build your Next.js app)
+# Ensure Next.js can build without errors
 RUN npm run build
 
-# Expose the port the app will run on
+# Stage 3: Create optimized production image
+FROM node:20-alpine AS runner
+
+WORKDIR /app
+
+# Copy only the essential files for production
+COPY --from=builder /app/.next/standalone ./
+COPY --from=builder /app/public ./public
+COPY --from=builder /app/.next/static ./.next/static
+COPY --from=builder /app/.env* ./
+
 EXPOSE 3000
 
-# Default command to run the app
-CMD ["npm", "run", "start"]
+ENV NODE_ENV=production
+ENV HOSTNAME=0.0.0.0
+
+CMD ["node", "server.js"]
