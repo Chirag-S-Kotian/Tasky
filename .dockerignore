@@ -1,0 +1,28 @@
+# Ignore node_modules and dependencies
+node_modules
+npm-debug.log
+yarn-error.log
+pnpm-debug.log
+
+# Ignore build outputs
+.next
+out
+dist
+
+# Ignore environment files (security risk)
+.env
+.env.local
+.env.development
+.env.production
+.env.test
+
+# Ignore local dev files
+.DS_Store
+*.log
+.vscode
+.idea
+*.swp
+.git
+.gitignore
+docker-compose.yml
+docker-compose.override.yml
