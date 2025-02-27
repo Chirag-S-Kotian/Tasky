@@ -7,14 +7,8 @@ pnpm-debug.log
 # Ignore build outputs
 .next
 out
+public
 dist
-
-# Ignore environment files (security risk)
-.env
-.env.local
-.env.development
-.env.production
-.env.test
 
 # Ignore local dev files
 .DS_Store
@@ -22,7 +16,7 @@ dist
 .vscode
 .idea
 *.swp
-.git
+.github
 .gitignore
 docker-compose.yml
 docker-compose.override.yml
