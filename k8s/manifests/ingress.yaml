@@ -3,15 +3,15 @@ kind: Ingress
 metadata:
   name: gok
   annotations:
-    nginx.ingress.kubernetes.io/rewrite-target: /
+    nginx.ingress.kubernetes.io/use-regex: "true"  # Enable regex for Next.js paths
 spec:
   ingressClassName: nginx
   rules:
   - host: gok.local
-  - http:
+    http:
       paths:
-      - path: /
-        pathType: Prefix
+      - path: /(.*)  # Capture all paths, including _next/static
+        pathType: ImplementationSpecific
         backend:
           service:
             name: gok
