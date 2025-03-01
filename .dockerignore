@@ -5,10 +5,7 @@ yarn-error.log
 pnpm-debug.log
 
 # Ignore build outputs
-.next
 out
-public
-dist
 
 # Ignore local dev files
 .DS_Store
