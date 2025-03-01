@@ -1,0 +1,111 @@
+# Default values for gok.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+# Replica count for the Deployment
+replicaCount: 3
+
+# Container image configuration.
+image:
+  repository: chirag117/gok
+  pullPolicy: IfNotPresent
+  tag: "v1"
+
+# Image pull secrets (if required for private registries)
+imagePullSecrets: []
+
+# Overrides for the chart name.
+nameOverride: ""
+fullnameOverride: ""
+
+# Service account configuration.
+serviceAccount:
+  create: true
+  automount: true
+  annotations: {}
+  name: ""
+
+# Pod annotations and labels.
+podAnnotations: {}
+podLabels: {}
+
+podSecurityContext: {}
+# fsGroup: 2000
+
+securityContext: {}
+# capabilities:
+#   drop:
+#   - ALL
+# readOnlyRootFilesystem: true
+# runAsNonRoot: true
+# runAsUser: 1000
+
+# Service configuration.
+service:
+  # We are using NodePort to expose the application.
+  type: NodePort
+  port: 80
+  targetPort: 3000
+
+# Ingress configuration.
+ingress:
+  enabled: true
+  className: "nginx"
+  annotations:
+    nginx.ingress.kubernetes.io/use-regex: "true"
+  hosts:
+    - host: gok.local
+      paths:
+        - path: /(.*)
+          pathType: ImplementationSpecific
+  tls: []
+  # Example TLS configuration:
+  # - secretName: gok-tls
+  #   hosts:
+  #     - gok.local
+
+# Resources configuration for the container.
+resources:
+  limits:
+    cpu: "500m"
+    memory: "512Mi"
+  requests:
+    cpu: "250m"
+    memory: "256Mi"
+
+# Liveness and readiness probes.
+livenessProbe:
+  httpGet:
+    path: /
+    port: http
+readinessProbe:
+  httpGet:
+    path: /
+    port: http
+
+# Autoscaling configuration (disabled by default).
+autoscaling:
+  enabled: false
+  minReplicas: 1
+  maxReplicas: 100
+  targetCPUUtilizationPercentage: 80
+  # targetMemoryUtilizationPercentage: 80
+
+# Additional volumes.
+volumes: []
+# - name: foo
+#   secret:
+#     secretName: mysecret
+#     optional: false
+
+# Additional volume mounts.
+volumeMounts: []
+# - name: foo
+#   mountPath: "/etc/foo"
+#   readOnly: true
+
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}

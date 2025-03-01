@@ -1,0 +1,29 @@
+# This is a sample deployment manifest file for a simple web application.
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: gok
+  labels:
+    app: gok
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: gok
+  template:
+    metadata:
+      labels:
+        app: gok
+    spec:
+      containers:
+      - name: gok
+        image: chirag117/gok:v1
+        resources:
+          limits:
+            memory: "512Mi"
+            cpu: "500m"
+          requests:
+            memory: "256Mi"
+            cpu: "250m"
+        ports:
+        - containerPort: 3000
