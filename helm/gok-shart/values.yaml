@@ -9,7 +9,7 @@ replicaCount: 3
 image:
   repository: chirag117/gok
   pullPolicy: IfNotPresent
-  tag: "13605081746"
+  tag: "13605133677"
 
 # Image pull secrets (if required for private registries)
 imagePullSecrets: []
