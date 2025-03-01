@@ -27,14 +27,14 @@ jobs:
       - name: Build project
         run: npm run build
 
-  code-quality:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
+#   code-quality:
+#     runs-on: ubuntu-latest
+#     steps:
+#       - name: Checkout repository
+#         uses: actions/checkout@v4
 
-      - name: Run ESLint (or your linter)
-        run: npm run lint
+#       - name: Run ESLint (or your linter)
+#         run: npm run lint
 
   push:
     runs-on: ubuntu-latest

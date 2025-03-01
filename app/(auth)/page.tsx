@@ -13,7 +13,7 @@ export default function RootPage() {
   return (
     <div className='grid h-screen place-items-center'>
       <div className='grid gap-4 text-center'>
-        <h3 className='text-2xl font-semibold'>Hello 😚</h3>
+        <h3 className='text-2xl font-semibold'>Hello Guys 😚</h3>
         <p className='text-sm'>To use the app you need to sign in</p>
         <Button asChild>
           <Link href={PAGES.SIGN_IN}>Go to the sign in page</Link>
