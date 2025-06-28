@@ -76,6 +76,7 @@ sudo apt-get install helm
 ## Project Setup
 
 1. Create Project Structure
+
 ```bash
 mkdir -p ~/Desktop/THREE/goku/{terraform,helm/gok-shart,.github/workflows}
 cd ~/Desktop/THREE/goku
