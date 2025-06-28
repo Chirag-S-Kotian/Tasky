@@ -38,6 +38,7 @@ Project Goku is a production-ready Kubernetes deployment solution implementing G
 - **Registry**: Docker Hub
 - **Monitoring**: Prometheus Ready
 
+
 ## Prerequisites Installation
 ```bash
 # Install AWS CLI
