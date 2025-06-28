@@ -84,6 +84,7 @@ cd ~/Desktop/THREE/goku
 ```
 
 2. Initialize Terraform
+
 ```bash
 cd terraform
 terraform init
