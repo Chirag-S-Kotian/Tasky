@@ -41,6 +41,7 @@ Project Goku is a production-ready Kubernetes deployment solution implementing G
 
 
 ## Prerequisites Installation
+
 ```bash
 # Install AWS CLI
 curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
