@@ -29,6 +29,7 @@ Project Goku is a production-ready Kubernetes deployment solution implementing G
 
 
 ### Technical Stack
+
 - **Infrastructure**: AWS EKS, VPC, Subnets
 - **IaC**: Terraform
 - **Containerization**: Docker
