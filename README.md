@@ -94,6 +94,7 @@ terraform init
 ```
 
 3. Deploy Infrastructure
+
 ```bash
 # Review the plan
 terraform plan
