@@ -99,6 +99,7 @@ terraform apply -auto-approve
 ```
 
 4. Connect to EKS
+
 ```bash
 aws eks update-kubeconfig --name gok-cluster --region ap-south-1
 kubectl get nodes # Verify connection
