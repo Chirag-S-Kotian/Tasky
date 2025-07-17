@@ -20,6 +20,7 @@ Project Goku is a production-ready Kubernetes deployment solution implementing G
 - Monitoring and observability setup and deployment
 
 
+
 ### Architecture Overview
 
 ```
