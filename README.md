@@ -16,6 +16,7 @@ Project Goku is a production-ready Kubernetes deployment solution implementing G
 - Helm-based application deployment
 
 - Automated container builds and deployments
+
 - Monitoring and observability setup and deployment
 
 
