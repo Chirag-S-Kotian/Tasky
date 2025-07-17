@@ -9,6 +9,7 @@ Project Goku is a production-ready Kubernetes deployment solution implementing G
 
 - Infrastructure as Code using Terraform
 - Container orchestration with Kubernetes (EKS)
+
 - GitOps workflow with GitHub Actions
 - Helm-based application deployment
 - Automated container builds and deployments
