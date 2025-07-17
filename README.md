@@ -262,6 +262,7 @@ velero restore create --from-backup gok-backup
    - AlertManager configuration
    - Slack/PagerDuty integration
 
+
 4. **Cost Optimization**
    - Resource requests/limits
    - Spot instances utilization
