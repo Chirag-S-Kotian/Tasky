@@ -53,6 +53,7 @@ sudo ./aws/install
 
 # Configure AWS CLI
 aws configure
+
 # Enter your AWS Access Key ID
 # Enter your AWS Secret Access Key
 # Region: ap-south-1
